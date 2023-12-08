@@ -1,25 +1,36 @@
 package com.example.rateuniversity.entity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private String Id;
 
-    @Column(nullable = false, unique = true, length = 45)
+    @NotEmpty
+    @Email
+    @Column(unique = true)
     private String email;
 
-    @Column(nullable = false, length = 45, name = "username")
+    @NotEmpty
+    @Column(unique = true)
     private String username;
 
-    @Column(nullable = false, length = 15)
+    @NotEmpty
     private String password;
 
+    @NotEmpty
     private String dateCreated;
-    private String displayPictureColor;
+   // private String displayPictureColor;
 
     private boolean admin = false;
     private boolean banned = false;
@@ -30,37 +41,5 @@ public class User {
 
     public void setAdmin(boolean status) {
         this.admin = status;
-    }
-
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
