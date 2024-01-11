@@ -30,6 +30,9 @@ function App() {
           <Routes>
               {/* http://localhost:8080 */}
               <Route path='/' element = { <LoginComponent /> }></Route>
+
+             {/* http://localhost:8080/register */}
+              <Route path='/register' element = { <RegisterComponent />}></Route>
              
 
                {/* http://localhost:8080/login */}
