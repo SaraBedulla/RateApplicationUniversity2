@@ -1,1 +1,0 @@
-# RateApplicationUniversity2
