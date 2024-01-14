@@ -1,2 +1,2 @@
-package feedback.application.feedback.repository;public class CourseRepository {
+package feedback.application.feedback.repository;public interface CourseRepository {
 }
