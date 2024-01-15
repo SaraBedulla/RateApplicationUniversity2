@@ -55,16 +55,25 @@ public class Course {
     public Course() {
     }
 
-    public Course(Long id, String courseCode, String title, String description, String instructor, Integer credits, Date startDate, Date endDate) {
-        this.id = id;
-        this.courseCode = courseCode;
-        this.title = title;
-        this.description = description;
-        this.instructor = instructor;
-        this.credits = credits;
-        this.startDate = startDate;
-        this.endDate = endDate;
+
+    public double getAverageRating() {
+        double total = 0;
+        for (Feedback feedback : feedbacks) {
+            total += feedback.getRating();
+        }
+        return total / feedbacks.size();
     }
+
+//    public Course(Long id, String courseCode, String title, String description, String instructor, Integer credits, Date startDate, Date endDate) {
+//        this.id = id;
+//        this.courseCode = courseCode;
+//        this.title = title;
+//        this.description = description;
+//        this.instructor = instructor;
+//        this.credits = credits;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//    }
 
     public Long getId() {
         return id;

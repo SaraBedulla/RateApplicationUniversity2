@@ -11,15 +11,21 @@ import java.util.Optional;
 @Service
 public class CourseService {
 
-    private final CourseRepository courseRepository;
 
     @Autowired
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
+    private CourseRepository courseRepository;
+
+
+
 
     public List<Course> findAllCourses() {
         return courseRepository.findAll();
+    }
+
+    public List<Course> findTopRatedCourses() {
+        List<Course> all = courseRepository.findAll();
+        all.sort((o1, o2) -> (int) (o2.getAverageRating() - o1.getAverageRating()));
+        return all.subList(0, 8);
     }
 
     public Optional<Course> findCourseById(Long id) {
