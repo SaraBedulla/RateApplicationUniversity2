@@ -1,6 +1,8 @@
 package feedback.application.feedback.model;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -65,7 +67,15 @@ public class Course {
         for (Feedback feedback : feedbacks) {
             total += feedback.getRating();
         }
-        return total / feedbacks.size();
+
+        if (feedbacks.isEmpty()) {
+            return 0.00; // Handle the case where there are no feedbacks to avoid division by zero.
+        }
+
+        double average = total / feedbacks.size();
+        BigDecimal roundedAverage = new BigDecimal(average).setScale(2, RoundingMode.HALF_UP);
+
+        return roundedAverage.doubleValue();
     }
 //
 //    public Course(Long id, String courseCode, String title, String description, String instructor, Integer credits, LocalDate startDate, LocalDate endDate) {
