@@ -1,6 +1,7 @@
 package feedback.application.feedback.model;
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -22,6 +23,9 @@ public class Course {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "instructor")
     private String instructor;
 
@@ -30,11 +34,11 @@ public class Course {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -63,8 +67,8 @@ public class Course {
         }
         return total / feedbacks.size();
     }
-
-//    public Course(Long id, String courseCode, String title, String description, String instructor, Integer credits, Date startDate, Date endDate) {
+//
+//    public Course(Long id, String courseCode, String title, String description, String instructor, Integer credits, LocalDate startDate, LocalDate endDate) {
 //        this.id = id;
 //        this.courseCode = courseCode;
 //        this.title = title;
@@ -107,6 +111,14 @@ public class Course {
         this.description = description;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getInstructor() {
         return instructor;
     }
@@ -123,19 +135,19 @@ public class Course {
         this.credits = credits;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
