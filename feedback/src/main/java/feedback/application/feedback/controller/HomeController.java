@@ -26,8 +26,6 @@ public class HomeController {
         // Retrieve the currently logged-in student's email
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-
-        // Retrieve the student profile by email
         Student student = studentService.findByEmail(email);
 
         // Pass the student profile data to the template

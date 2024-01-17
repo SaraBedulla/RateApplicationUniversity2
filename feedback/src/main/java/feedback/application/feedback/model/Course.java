@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "course")
@@ -50,13 +48,17 @@ public class Course {
     )
     private Set<Student> enrolledStudents = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "course_feedback",
-            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "feedback_id", referencedColumnName = "id")
-    )
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "course")
     private Set<Feedback> feedbacks = new HashSet<>();
+
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "course_feedback",
+//            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "feedback_id", referencedColumnName = "id")
+//    )
+//    private Set<Feedback> feedbacks = new HashSet<>();
 
     public Course() {
     }
@@ -167,6 +169,15 @@ public class Course {
 
     public void setEnrolledStudents(Set<Student> enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
+    }
+
+    public Set<Feedback> getFeedbacks() {
+        Set<Feedback> feedbacksSorted = new TreeSet<Feedback>(feedbacks);
+        return feedbacksSorted;
+    }
+
+    public void setFeedbacks(Set<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 
     @Override

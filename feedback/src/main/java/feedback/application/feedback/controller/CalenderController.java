@@ -50,6 +50,8 @@ public class CalenderController {
 
             // Add the JSON data to the model
             model.addAttribute("courses", coursesJson);
+            model.addAttribute("student", student);
+
         } catch (JsonProcessingException e) {
             // Handle any exceptions that may occur during JSON conversion
             e.printStackTrace();

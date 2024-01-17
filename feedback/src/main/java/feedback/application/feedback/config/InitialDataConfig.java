@@ -58,7 +58,7 @@ public class InitialDataConfig {
                     Feedback feedback = new Feedback();
                     feedback.setStudent(student);
                     feedback.setContent("Demo feedback " + i + " : " + student.getEmail());
-                    feedback.setCreatedAt(LocalDate.now().plusDays(i));
+                    feedback.setCreatedAt(Date.now().plusDays(i));
                     feedback.setCourse(course);
                     feedback.setRating(new Random().nextInt(6));
                     feedbackService.saveFeedback(feedback);

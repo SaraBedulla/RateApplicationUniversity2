@@ -1,23 +1,27 @@
 package feedback.application.feedback.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "feedback")
-public class Feedback {
+public class Feedback implements Comparable<Feedback>, Comparator<Feedback> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Course course;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Student student;
@@ -28,14 +32,14 @@ public class Feedback {
     @Column(name = "rating")
     private int rating;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+    private Date createdAt;
 
     public Feedback() {
     }
 
-    public Feedback(Long id, Course course, Student student, String content, int rating, LocalDate createdAt) {
+    public Feedback(Long id, Course course, Student student, String content, int rating, Date createdAt) {
         this.id = id;
         this.course = course;
         this.student = student;
@@ -43,7 +47,6 @@ public class Feedback {
         this.rating = rating;
         this.createdAt = createdAt;
     }
-
     public Long getId() {
         return id;
     }
@@ -84,12 +87,17 @@ public class Feedback {
         this.rating = rating;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public int compare(Feedback o1, Feedback o2) {
+        return o1.getCreatedAt().compareTo(o2.createdAt);
     }
 
     @Override
@@ -116,5 +124,11 @@ public class Feedback {
                 ", createdAt=" + createdAt +
                 '}';
     }
+
+    @Override
+    public int compareTo(Feedback o) {
+        return compare(this, o);
+    }
+
 }
 

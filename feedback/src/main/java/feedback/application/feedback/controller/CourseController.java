@@ -20,13 +20,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/courses")
 public class CourseController {
-    private final CourseService courseService;
     @Autowired
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
-    }
+    private CourseService courseService;
     @Autowired
     private StudentService studentService;
+//    @Autowired
+//    public CourseController(CourseService courseService) {
+//        this.courseService = courseService;
+//    }
+
     @GetMapping("/{id}")
     public String viewCourseDetails(@PathVariable Long id, Model model) {
         // Retrieve the course by its ID
