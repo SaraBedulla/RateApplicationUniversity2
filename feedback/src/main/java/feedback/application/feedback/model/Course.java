@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.*;
 
+
 @Entity
 @Table(name = "course")
 public class Course {
@@ -34,11 +35,11 @@ public class Course {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
-    private LocalDate startDate;
+    private Date startDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
-    private LocalDate endDate;
+    private Date endDate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -147,7 +148,7 @@ public class Course {
         this.credits = credits;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
@@ -155,7 +156,7 @@ public class Course {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
