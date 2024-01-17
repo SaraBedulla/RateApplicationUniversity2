@@ -25,7 +25,7 @@ public class LoginController {
     private StudentService studentService;
 
     @GetMapping
-    public String login() {
+    public String login(Model model) {
 
         // Retrieve the currently logged-in student's email
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
