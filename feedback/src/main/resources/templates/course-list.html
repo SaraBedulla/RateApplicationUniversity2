@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<br/><br/>
+
+<!-- Main Container -->
+<div class="container">
+
+    <h2>All Courses from Rate University</h2>
+    <p></p>
+
+    <!-- Search Section -->
+    <div class="row mt-4 mb-4">
+        <div class="col-md-12">
+            <h4>Search Courses</h4>
+            <form th:action="@{/courses/search}" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchQuery" placeholder="Search courses...">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Course Cards -->
+            <div class="row">
+                <div th:each="course : ${courses}" class="col-md-4">
+                    <div class="card mb-4 p-3">
+                        <div class="card-header">
+                            <h3 th:text="${course.title}"></h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Average Rating:</strong> <span th:text="${course.averageRating}"></span></p>
+                            <p><strong>Description:</strong> <span th:text="${course.description}"></span></p>
+                            <p><strong>Credits:</strong> <span th:text="${course.credits}"></span></p>
+                            <p><strong>Start Date:</strong> <span th:text="${course.startDate}"></span></p>
+                            <p><strong>End Date:</strong> <span th:text="${course.endDate}"></span></p>
+                            <p><strong>Instructor:</strong> <span th:text="${course.instructor}"></span></p>
+                            <p><strong>Location:</strong> <span th:text="${course.location}"></span></p>
+                            <p><strong>Registered Students:</strong> <span th:text="${course.enrolledStudents.size()}"></span></p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <form th:if="${not course.enrolledStudents.contains(student)}" method="get"
+                                          th:action="@{/courses/join/{courseId}(courseId=${course.id})}">
+                                        <button class="btn btn-primary btn-block" type="submit">Join</button>
+                                    </form>
+                                    <form th:if="${course.enrolledStudents.contains(student)}" method="get"
+                                          th:action="@{/courses/drop/{courseId}(courseId=${course.id})}">
+                                        <button class="btn btn-danger btn-block" type="submit">Drop</button>
+                                    </form>
+                                </div>
+                                <div class="col-md-5">
+                                    <a th:href="@{'/courses/' + ${course.id}}" class=" btn btn-secondary btn-block">View Course</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
