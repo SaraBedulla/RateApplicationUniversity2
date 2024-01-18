@@ -41,9 +41,14 @@ public class CourseController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Student student = studentService.findByEmail(email);
+        model.addAttribute("student", student);
         // Add the course to the model to be displayed in the template
         model.addAttribute("course", course);
-
+        if (student != null) {
+            if (course.getEnrolledStudents().contains(student))
+                model.addAttribute("isRegister", !feedbackService.hasStudentLeftFeedback(student, course));
+        } else
+            model.addAttribute("isRegister", false);
         // Return the course details template
         return "course-view";
     }
