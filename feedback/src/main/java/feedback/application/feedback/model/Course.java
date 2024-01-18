@@ -53,13 +53,6 @@ public class Course {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "course")
     private Set<Feedback> feedbacks = new HashSet<>();
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "course_feedback",
-//            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "feedback_id", referencedColumnName = "id")
-//    )
-//    private Set<Feedback> feedbacks = new HashSet<>();
 
     public Course() {
     }
@@ -80,17 +73,7 @@ public class Course {
 
         return roundedAverage.doubleValue();
     }
-//
-//    public Course(Long id, String courseCode, String title, String description, String instructor, Integer credits, LocalDate startDate, LocalDate endDate) {
-//        this.id = id;
-//        this.courseCode = courseCode;
-//        this.title = title;
-//        this.description = description;
-//        this.instructor = instructor;
-//        this.credits = credits;
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//    }
+
 
     public Long getId() {
         return id;
