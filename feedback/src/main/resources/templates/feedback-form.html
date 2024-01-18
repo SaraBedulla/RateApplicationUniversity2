@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Feedback</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<br/><br/>
+
+
+<!-- Main Container -->
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 mt-4">
+            <div class="card shadow-sm">
+                <div class="card-header"
+                     style="background: linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(120,120,120,1) 100%);">
+                    <h5 class="text-white">Leave Feedback for Course: <span th:text="${course.title}"></span></h5>
+                </div>
+                <div class="card-body bg-light">
+                    <!-- Feedback Form -->
+                    <form th:action="@{/courses/leave-feedback/{id}(id=*{course.id})}" method="post">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating (1-5):</label>
+                            <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Content (max 1000 characters):</label>
+                            <textarea class="form-control" id="content" name="content" rows="5" maxlength="1000" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                </div>
+                <!-- Error message -->
+                <div class="card-footer bg-transparent">
+                    <div class="text-danger" th:if="${errorMessage}">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation Bar -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Bootstrap JS bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
