@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,5 +40,29 @@ public class CourseServiceTest {
         List<Course> topRatedCourses = courseService.findTopRatedCourses();
         assertThat(topRatedCourses).isNotNull();
     }
-
+    @Test
+    public void testFindCourseById() {
+        Long courseId = 1L; // Replace with an existing course ID
+        Optional<Course> course = courseService.findCourseById(courseId);
+        assertThat(course).isPresent();
+    }
+    @Test
+    public void testSaveCourse() {
+        courseService.saveCourse(course);
+        assertThat(course).isNotNull();
+        assertThat(course.getId()).isNotNull();
+    }
+    @Test
+    public void testDeleteCourse() {
+        courseService.saveCourse(course);
+        courseService.deleteCourse(course.getId());
+        Optional<Course> deletedCourse = courseService.findCourseById(course.getId());
+        assertThat(deletedCourse).isEmpty();
+    }
+    @Test
+    public void testSearchCourses() {
+        String searchQuery = "example";
+        List<Course> matchingCourses = courseService.searchCourses(searchQuery);
+        assertThat(matchingCourses).isNotNull();
+    }
 }

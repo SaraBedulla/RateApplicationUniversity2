@@ -93,6 +93,26 @@ public class FeedbackServiceTest {
 
         verify(feedbackRepository, times(1)).deleteById(1L);
     }
+    @Test
+    public void testHasStudentLeftFeedback() {
+        when(feedbackRepository.findByStudentAndCourse(student, course)).thenReturn(Optional.of(feedback));
+
+        boolean result = feedbackService.hasStudentLeftFeedback(student, course);
+
+        assertThat(result).isTrue();
+    }
+    @Test
+    public void testFindAllByStudent() {
+        List<Feedback> feedbacks = new ArrayList<>();
+        feedbacks.add(feedback);
+
+        when(feedbackRepository.findAll()).thenReturn(feedbacks);
+
+        List<Feedback> result = feedbackService.findAllByStudent(student);
+
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(1);
+    }
 
 
 
