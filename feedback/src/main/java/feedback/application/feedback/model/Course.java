@@ -41,7 +41,7 @@ public class Course {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "course_student",
             joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
@@ -50,7 +50,7 @@ public class Course {
     private Set<Student> enrolledStudents = new HashSet<>();
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "course")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "course")
     private Set<Feedback> feedbacks = new HashSet<>();
 
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
