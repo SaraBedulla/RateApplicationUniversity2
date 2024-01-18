@@ -1,19 +1,19 @@
 package feedback.application.feedback.controller;
 import feedback.application.feedback.model.Course;
+import feedback.application.feedback.model.Feedback;
 import feedback.application.feedback.model.Student;
 import feedback.application.feedback.service.CourseService;
+import feedback.application.feedback.service.FeedbackService;
 import feedback.application.feedback.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +24,9 @@ public class CourseController {
     private CourseService courseService;
     @Autowired
     private StudentService studentService;
-//    @Autowired
-//    public CourseController(CourseService courseService) {
-//        this.courseService = courseService;
-//    }
+    @Autowired
+    private FeedbackService feedbackService;
+
 
     @GetMapping("/{id}")
     public String viewCourseDetails(@PathVariable Long id, Model model) {
@@ -96,5 +95,44 @@ public class CourseController {
         model.addAttribute("student", student);
         return "course-list";
     }
+
+    @GetMapping("/leave-feedback/{courseId}")
+    public String showFeedbackForm(@PathVariable Long courseId, Model model) {
+        // Check if the student is registered for the course
+        Student student = getLoggedInStudent(); // Implement this method to get the logged-in student
+        Optional<Course> course = courseService.findCourseById(courseId);
+
+        model.addAttribute("course", course.get());
+        return "feedback-form";
+    }
+
+
+    @PostMapping("/leave-feedback/{id}")
+    public String submitFeedback(@PathVariable Long id, @RequestParam int rating, @RequestParam String content, Model model) {
+        try {
+            Student student = getLoggedInStudent(); // Implement this method to get the logged-in student
+            Optional<Course> course = courseService.findCourseById(id);
+
+            if (student != null && course.isPresent() && course.get().getEnrolledStudents().contains(student)) {
+                Feedback feedback = new Feedback();
+                feedback.setStudent(student);
+                feedback.setCourse(course.get());
+                feedback.setRating(rating);
+                feedback.setContent(content);
+                feedback.setCreatedAt(new Date());
+
+                feedbackService.saveFeedback(feedback);
+            }
+
+            return "redirect:/courses";
+        } catch (Exception e) {
+            // Check if the student is registered for the course
+            Optional<Course> course = courseService.findCourseById(id);
+            model.addAttribute("course", course.get());
+            model.addAttribute("errorMessage", "Feedback length can't be extend then 1000 character");
+            return "feedback-form";
+        }
+    }
+
 
 }
