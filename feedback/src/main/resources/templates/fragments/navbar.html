@@ -1,0 +1,30 @@
+<!-- navbar.html -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Rate University Application</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/courses}">Courses</a>
+            </li>
+            <!-- Add conditional logic to show login/logout button -->
+            <li class="nav-item" th:if="${student == null}">
+                <a class="nav-link btn btn-primary" style="padding: 6px 12px;" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item" th:if="${student != null}">
+                <a class="nav-link btn btn-primary" style="padding: 6px 12px;" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+</body>
+</html>
