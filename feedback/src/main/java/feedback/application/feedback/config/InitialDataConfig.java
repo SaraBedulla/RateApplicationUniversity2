@@ -64,62 +64,62 @@ public class InitialDataConfig {
             "Ethical decision-making in the business world."
     };
 
-
-    @Bean
-    CommandLineRunner initDatabase(StudentService studentService) {
-        return args -> {
-            // Create and save some Student entities
-            studentService.registerStudent(new Student(null,
-                    "John", "Doe", "john.doe@example.com", "1234"));
-            studentService.registerStudent(new Student(null,
-                    "Jane", "Smith", "jane.smith@example.com", "1234"));
-            studentService.registerStudent(new Student(null,
-                    "Jane", "Smith", "a@a.com", "a"));
-
-            // Create and save 15 realistic Course entities
-            for (int i = 0; i < courseNames.length; i++) {
-
-                // Initialize realistic course
-                Course course = new Course();
-                course.setTitle(courseNames[i]);
-                course.setCredits(3);
-                course.setDescription(courseDescriptions[i]);
-                course.setInstructor("Professor " + (i + 1));
-                course.setCourseCode("COURSE-" + (i + 1));
-
-                Calendar startCalendar = Calendar.getInstance();
-                startCalendar.add(Calendar.DAY_OF_MONTH, (i * i) + 1);
-                course.setStartDate(startCalendar.getTime());
-
-                Calendar endCalendar = Calendar.getInstance();
-                endCalendar.add(Calendar.DAY_OF_MONTH, (i * i) + 10);
-                course.setEndDate(endCalendar.getTime());
-
-                course.setLocation("Campus " + (i + 1));
-                courseService.saveCourse(course);
-
-                // Initialize realistic feedback for enrolled students
-                List<Student> enrolledStudents = studentService.findAllStudents();
-
-                int count = 5;
-                for (Student student : enrolledStudents) {
-                    course.getEnrolledStudents().add(student);
-
-                    Feedback feedback = new Feedback();
-                    feedback.setStudent(student);
-                    feedback.setContent("I really enjoyed " + course.getTitle() + ". The content was engaging, and the instructor was knowledgeable.");
-
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.add(Calendar.DAY_OF_MONTH, (i * i) + (count--));
-                    feedback.setCreatedAt(calendar.getTime());
-
-                    feedback.setCourse(course);
-                    feedback.setRating(new Random().nextInt(3) + 3); // Random rating between 3 and 5
-                    feedbackService.saveFeedback(feedback);
-                }
-
-                courseService.saveCourse(course);
-            }
-        };
-    }
+//
+//    @Bean
+//    CommandLineRunner initDatabase(StudentService studentService) {
+//        return args -> {
+//            // Create and save some Student entities
+//            studentService.registerStudent(new Student(null,
+//                    "John", "Doe", "john.doe@example.com", "1234"));
+//            studentService.registerStudent(new Student(null,
+//                    "Jane", "Smith", "jane.smith@example.com", "1234"));
+//            studentService.registerStudent(new Student(null,
+//                    "Jane", "Smith", "a@a.com", "a"));
+//
+//            // Create and save 15 realistic Course entities
+//            for (int i = 0; i < courseNames.length; i++) {
+//
+//                // Initialize realistic course
+//                Course course = new Course();
+//                course.setTitle(courseNames[i]);
+//                course.setCredits(3);
+//                course.setDescription(courseDescriptions[i]);
+//                course.setInstructor("Professor " + (i + 1));
+//                course.setCourseCode("COURSE-" + (i + 1));
+//
+//                Calendar startCalendar = Calendar.getInstance();
+//                startCalendar.add(Calendar.DAY_OF_MONTH, (i * i) + 1);
+//                course.setStartDate(startCalendar.getTime());
+//
+//                Calendar endCalendar = Calendar.getInstance();
+//                endCalendar.add(Calendar.DAY_OF_MONTH, (i * i) + 10);
+//                course.setEndDate(endCalendar.getTime());
+//
+//                course.setLocation("Campus " + (i + 1));
+//                courseService.saveCourse(course);
+//
+//                // Initialize realistic feedback for enrolled students
+//                List<Student> enrolledStudents = studentService.findAllStudents();
+//
+//                int count = 5;
+//                for (Student student : enrolledStudents) {
+//                    course.getEnrolledStudents().add(student);
+//
+//                    Feedback feedback = new Feedback();
+//                    feedback.setStudent(student);
+//                    feedback.setContent("I really enjoyed " + course.getTitle() + ". The content was engaging, and the instructor was knowledgeable.");
+//
+//                    Calendar calendar = Calendar.getInstance();
+//                    calendar.add(Calendar.DAY_OF_MONTH, (i * i) + (count--));
+//                    feedback.setCreatedAt(calendar.getTime());
+//
+//                    feedback.setCourse(course);
+//                    feedback.setRating(new Random().nextInt(3) + 3); // Random rating between 3 and 5
+//                    feedbackService.saveFeedback(feedback);
+//                }
+//
+//                courseService.saveCourse(course);
+//            }
+//        };
+//    }
 }
