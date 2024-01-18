@@ -2,6 +2,7 @@ package feedback.application.feedback.controller;
 
 import feedback.application.feedback.model.Student;
 import feedback.application.feedback.service.CourseService;
+import feedback.application.feedback.service.FeedbackService;
 import feedback.application.feedback.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,8 @@ public class HomeController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private FeedbackService feedbackService;
 
     @GetMapping()
     public String home(Model model) {
@@ -33,7 +36,10 @@ public class HomeController {
 
         // filter top-rated 8 courses
         model.addAttribute("courses", courseService.findTopRatedCourses());
+        model.addAttribute("feedbacks", feedbackService.findAllByStudent(student));
 
+        if(student == null)
+            return "redirect:/courses";
         return "home";
     }
 }
