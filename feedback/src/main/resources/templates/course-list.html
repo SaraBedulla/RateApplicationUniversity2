@@ -12,15 +12,19 @@
 <br/><br/>
 
 <!-- Main Container -->
-<div class="container">
-
-    <h2>All Courses from Rate University</h2>
-    <p></p>
-
+<div class="container mt-4">
+    <div class="card text-white">
+        <div class="card-header" style="background: linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(120,120,120,1) 100%);">
+            <h5>All Courses from Rate University</h5>
+        </div>
+        <div class="card-body" style="background: linear-gradient(90deg, rgba(120,120,120,1) 0%, rgba(30,30,30,1) 100%);">
+            <p class="card-text">Embark on a transformative educational journey with our curated courses. Each program is meticulously designed to unlock your potential, providing an enriching blend of knowledge, practical skills, and industry insights. Start shaping your future today and stand out in the competitive landscape. Enroll now and be part of a learning experience that sets you apart!</p>
+        </div>
+    </div>
     <!-- Search Section -->
     <div class="row mt-4 mb-4">
         <div class="col-md-12">
-            <h4>Search Courses</h4>
+            <h5>Search Courses</h5>
             <form th:action="@{/courses/search}" method="get">
                 <div class="input-group">
                     <input type="text" class="form-control" name="searchQuery" placeholder="Search courses...">
@@ -35,19 +39,31 @@
             <!-- Course Cards -->
             <div class="row">
                 <div th:each="course : ${courses}" class="col-md-4">
-                    <div class="card mb-4 p-3">
-                        <div class="card-header">
-                            <h3 th:text="${course.title}"></h3>
+                    <div class="card mb-4">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(120,120,120,1) 100%);">
+                            <h5 th:text="${course.title}"></h5>
                         </div>
                         <div class="card-body">
-                            <p><strong>Average Rating:</strong> <span th:text="${course.averageRating}"></span></p>
+                            <!-- Rating and Description -->
+                            <p class="card-text">
+                                <span th:each="starIndex : ${#numbers.sequence(1, course.averageRating)}" class="text-warning">★</span>
+                                <span th:text="${course.averageRating} + ' stars'"></span>
+                            </p>
                             <p><strong>Description:</strong> <span th:text="${course.description}"></span></p>
-                            <p><strong>Credits:</strong> <span th:text="${course.credits}"></span></p>
-                            <p><strong>Start Date:</strong> <span th:text="${course.startDate}"></span></p>
-                            <p><strong>End Date:</strong> <span th:text="${course.endDate}"></span></p>
-                            <p><strong>Instructor:</strong> <span th:text="${course.instructor}"></span></p>
-                            <p><strong>Location:</strong> <span th:text="${course.location}"></span></p>
-                            <p><strong>Registered Students:</strong> <span th:text="${course.enrolledStudents.size()}"></span></p>
+
+                            <!-- Split Information into Two Columns -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Start Date:</strong> <span th:text="${course.startDate}"></span></p>
+                                    <p><strong>Instructor:</strong> <span th:text="${course.instructor}"></span></p>
+                                    <p><strong>Location:</strong> <span th:text="${course.location}"></span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>End Date:</strong> <span th:text="${course.endDate}"></span></p>
+                                    <p><strong>Credits:</strong> <span th:text="${course.credits}"></span></p>
+                                    <p><strong>Registered Students:</strong> <span th:text="${course.enrolledStudents.size()}"></span></p>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="row">
@@ -62,7 +78,7 @@
                                     </form>
                                 </div>
                                 <div class="col-md-5">
-                                    <a th:href="@{'/courses/' + ${course.id}}" class=" btn btn-secondary btn-block">View Course</a>
+                                    <a th:href="@{'/courses/' + ${course.id}}" class="btn btn-secondary btn-block">View Course</a>
                                 </div>
                             </div>
                         </div>
@@ -72,6 +88,9 @@
         </div>
     </div>
 </div>
+
+<!-- Navigation Bar -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 <!-- Bootstrap JS bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
