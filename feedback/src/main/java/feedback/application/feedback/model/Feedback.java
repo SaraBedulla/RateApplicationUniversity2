@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "feedback")
-public class Feedback implements Comparable<Feedback>, Comparator<Feedback> {
+public class Feedback implements Comparable<Feedback> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,18 +95,7 @@ public class Feedback implements Comparable<Feedback>, Comparator<Feedback> {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public int compare(Feedback o1, Feedback o2) {
-        return o1.getCreatedAt().compareTo(o2.createdAt);
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Feedback feedback = (Feedback) o;
-        return Objects.equals(id, feedback.id);
-    }
 
     @Override
     public int hashCode() {
@@ -127,7 +116,7 @@ public class Feedback implements Comparable<Feedback>, Comparator<Feedback> {
 
     @Override
     public int compareTo(Feedback o) {
-        return compare(this, o);
+        return this.getCreatedAt().compareTo(o.createdAt);
     }
 
 }

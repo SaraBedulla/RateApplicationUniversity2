@@ -83,9 +83,6 @@ public class Course {
         this.id = id;
     }
 
-    public String getCourseCode() {
-        return courseCode;
-    }
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
@@ -99,52 +96,17 @@ public class Course {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getInstructor() {
-        return instructor;
-    }
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
 
-    public Integer getCredits() {
-        return credits;
-    }
-
     public void setCredits(Integer credits) {
         this.credits = credits;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     public Set<Student> getEnrolledStudents() {
