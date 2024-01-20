@@ -138,7 +138,7 @@ public class CourseController {
             return "feedback-form";
         }
     }
-    private Student getLoggedInStudent() {
+    public Student getLoggedInStudent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         return studentService.findByEmail(email);

@@ -1,11 +1,11 @@
 package feedback.application.feedback.model;
+
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.*;
-
 
 @Entity
 @Table(name = "course")
@@ -49,14 +49,11 @@ public class Course {
     )
     private Set<Student> enrolledStudents = new HashSet<>();
 
-
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "course")
     private Set<Feedback> feedbacks = new HashSet<>();
 
-
     public Course() {
     }
-
 
     public double getAverageRating() {
         double total = 0;
@@ -74,7 +71,6 @@ public class Course {
         return roundedAverage.doubleValue();
     }
 
-
     public Long getId() {
         return id;
     }
@@ -83,6 +79,9 @@ public class Course {
         this.id = id;
     }
 
+    public String getCourseCode() {
+        return courseCode;
+    }
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
@@ -96,17 +95,52 @@ public class Course {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
 
+    public Integer getCredits() {
+        return credits;
+    }
+
     public void setCredits(Integer credits) {
         this.credits = credits;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Set<Student> getEnrolledStudents() {
@@ -154,5 +188,4 @@ public class Course {
                 '}';
     }
 }
-
 
