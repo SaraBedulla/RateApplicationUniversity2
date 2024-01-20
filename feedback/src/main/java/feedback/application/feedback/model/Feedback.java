@@ -102,28 +102,8 @@ public class Feedback implements Comparable<Feedback>, Comparator<Feedback> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Feedback feedback = (Feedback) o;
-        return Objects.equals(id, feedback.id);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Feedback{" +
-                "id=" + id +
-                ", course=" + course +
-                ", student=" + student +
-                ", content='" + content + '\'' +
-                ", rating=" + rating +
-                ", createdAt=" + createdAt +
-                '}';
     }
 
     @Override

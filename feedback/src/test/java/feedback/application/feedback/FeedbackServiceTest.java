@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,7 +115,31 @@ public class FeedbackServiceTest {
         assertThat(result).hasSize(1);
     }
 
+    @Test
+    public void testFeedbackGetterSetterMethods() {
+        // Create a new Feedback object
+        Feedback testFeedback = new Feedback();
 
+        // Create a Course and Student objects for association
+        Course course = new Course();
+        Student student = new Student();
+
+        // Set values using setter methods
+        testFeedback.setId(1L);
+        testFeedback.setCourse(course);
+        testFeedback.setStudent(student);
+        testFeedback.setContent("Test Content");
+        testFeedback.setRating(5);
+        testFeedback.setCreatedAt(new Date());
+
+        // Verify values using getter methods
+        assertThat(testFeedback.getId()).isEqualTo(1L);
+        assertThat(testFeedback.getCourse()).isEqualTo(course);
+        assertThat(testFeedback.getStudent()).isEqualTo(student);
+        assertThat(testFeedback.getContent()).isEqualTo("Test Content");
+        assertThat(testFeedback.getRating()).isEqualTo(5);
+        assertThat(testFeedback.getCreatedAt()).isNotNull();
+    }
 
 
 }

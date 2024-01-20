@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -59,6 +60,35 @@ public class CourseServiceTest {
         Optional<Course> deletedCourse = courseService.findCourseById(course.getId());
         assertThat(deletedCourse).isEmpty();
     }
+    @Test
+    public void testGetterSetterMethods() {
+        // Create a new Course instance
+        Course course = new Course();
+
+        // Set values using setter methods
+        course.setId(1L);
+        course.setCourseCode("CS101");
+        course.setTitle("Introduction to Computer Science");
+        course.setDescription("This is a sample course description.");
+        course.setLocation("Online");
+        course.setInstructor("John Doe");
+        course.setCredits(3);
+        course.setStartDate(new Date());
+        course.setEndDate(new Date());
+
+        // Verify getter methods return expected values
+        assertThat(course.getId()).isEqualTo(1L);
+        assertThat(course.getCourseCode()).isEqualTo("CS101");
+        assertThat(course.getTitle()).isEqualTo("Introduction to Computer Science");
+        assertThat(course.getDescription()).isEqualTo("This is a sample course description.");
+        assertThat(course.getLocation()).isEqualTo("Online");
+        assertThat(course.getInstructor()).isEqualTo("John Doe");
+        assertThat(course.getCredits()).isEqualTo(3);
+        assertThat(course.getStartDate()).isNotNull();
+        assertThat(course.getEndDate()).isNotNull();
+    }
+
+
     @Test
     public void testSearchCourses() {
         String searchQuery = "example";

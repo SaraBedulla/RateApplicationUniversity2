@@ -55,6 +55,25 @@ public class StudentServiceTest {
         Optional<Student> deletedStudent = studentService.findStudentById(registeredStudent.getId());
         assertThat(deletedStudent).isEmpty();
     }
+    @Test
+    public void testStudentGetterSetterMethods() {
+        // Create a new Student object
+        Student testStudent = new Student();
+
+        // Set values using setter methods
+        testStudent.setId(1L);
+        testStudent.setFirstName("John");
+        testStudent.setLastName("Doe");
+        testStudent.setEmail("johndoe@example.com");
+        testStudent.setPassword("password");
+
+        // Verify values using getter methods
+        assertThat(testStudent.getId()).isEqualTo(1L);
+        assertThat(testStudent.getFirstName()).isEqualTo("John");
+        assertThat(testStudent.getLastName()).isEqualTo("Doe");
+        assertThat(testStudent.getEmail()).isEqualTo("johndoe@example.com");
+        assertThat(testStudent.getPassword()).isEqualTo("password");
+    }
 
 }
 

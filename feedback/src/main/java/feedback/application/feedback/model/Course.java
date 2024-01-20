@@ -173,19 +173,6 @@ public class Course {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", courseCode='" + courseCode + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", instructor='" + instructor + '\'' +
-                ", credits=" + credits +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", enrolledStudents=" + enrolledStudents +
-                '}';
-    }
+
 }
 
