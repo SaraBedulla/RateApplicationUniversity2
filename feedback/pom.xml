@@ -52,11 +52,14 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 			<version>3.1.5</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring6</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 
 	</dependencies>
 
